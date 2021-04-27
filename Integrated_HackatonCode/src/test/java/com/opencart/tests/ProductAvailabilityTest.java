@@ -1,10 +1,7 @@
-package com.opencart.selectitem;
+package com.opencart.tests;
 
-import java.util.concurrent.TimeUnit;
+import java.io.IOException;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -12,13 +9,17 @@ import com.opencart.pages.E2ETestPage;
 import com.opencart.utils.BaseClass;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
 
-public class SelectandAdd extends BaseClass {
-
+public class ProductAvailabilityTest extends BaseClass {
 	static ExtentTest test;
 	static ExtentReports report;
+
 	public String path = System.getProperty("user.dir")+"\\screenshots";
+
+	public ProductAvailabilityTest() throws IOException {
+		super();
+
+	}
 
 	@BeforeTest
 	public void startTest() {
@@ -36,17 +37,21 @@ public class SelectandAdd extends BaseClass {
 	}
 
 	@Test(priority = 1, groups = { "group1", "group2" })
-	public void selectAdd() throws Exception {
+	public void userLogin() throws Exception {
 		E2ETestPage login = new E2ETestPage(driver);
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		move(login.getMousehover());
-		login.getShowall().click();
-		login.getSelectitem().click();
-		driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
-		login.getAddToCart().click();
-		driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
-		login.getClickCart().click();
-		test.log(LogStatus.PASS, "Success: You have added iMac to your shopping cart!");
+		login.getDropdown().click();
+		login.getLogin().click();
+		login.getEmailname().sendKeys(prop.getProperty("Emailname"));
+		login.getPassword().sendKeys(prop.getProperty("Password"));
+		login.getLoginClick().click();
+		login.getSearch().click();
+		login.getSearch().sendKeys(prop.getProperty("Phone"));
+		login.getClickSearch().click();
+		login.getSelectiphone().click();
+		login.getQuantity().sendKeys(prop.getProperty("value"));
+		login.getAddtocart().click();
+		login.getItemcart().click();
+		login.getIphonecheckout().click();
 		screenShot(path + "\\screenshot.jpeg");
 		report.flush();
 

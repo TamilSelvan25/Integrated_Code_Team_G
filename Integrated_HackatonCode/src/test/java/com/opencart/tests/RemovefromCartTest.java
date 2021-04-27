@@ -1,10 +1,8 @@
-package com.opencart.selectitem;
+package com.opencart.tests;
 
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -12,13 +10,12 @@ import com.opencart.pages.E2ETestPage;
 import com.opencart.utils.BaseClass;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
 
-public class SelectandAdd extends BaseClass {
+public class RemovefromCartTest extends BaseClass {
 
 	static ExtentTest test;
 	static ExtentReports report;
-	public String path = System.getProperty("user.dir")+"\\screenshots";
+	public String path = System.getProperty("user.dir") + "\\screenshots";
 
 	@BeforeTest
 	public void startTest() {
@@ -38,7 +35,6 @@ public class SelectandAdd extends BaseClass {
 	@Test(priority = 1, groups = { "group1", "group2" })
 	public void selectAdd() throws Exception {
 		E2ETestPage login = new E2ETestPage(driver);
-		JavascriptExecutor js = (JavascriptExecutor) driver;
 		move(login.getMousehover());
 		login.getShowall().click();
 		login.getSelectitem().click();
@@ -46,9 +42,11 @@ public class SelectandAdd extends BaseClass {
 		login.getAddToCart().click();
 		driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
 		login.getClickCart().click();
-		test.log(LogStatus.PASS, "Success: You have added iMac to your shopping cart!");
-		screenShot(path + "\\screenshot.jpeg");
-		report.flush();
+		login.getViewcart().click();
+		login.getRemovecart().click();
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollBy(0,1000)");
+		login.getContinueShopping().click();
 
 	}
 }

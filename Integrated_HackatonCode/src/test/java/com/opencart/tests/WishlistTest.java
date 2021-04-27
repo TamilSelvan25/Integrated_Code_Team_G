@@ -10,7 +10,7 @@ import com.opencart.utils.BaseClass;
 
 public class WishlistTest extends BaseClass {
 
-	public String path = "C:\\Users\\admin\\Tamil_wrkspc\\Hackaton_Demo3\\screenshots";
+	public String path = System.getProperty("user.dir")+"//screenshots";
 
 	@BeforeTest
 	public void initialization() throws Exception {

@@ -36,7 +36,7 @@ import org.openqa.selenium.support.ui.Select;
 
 public class BaseClass {
 	public static WebDriver driver;
-	public Properties prop;
+	public static Properties prop;
 
 	public WebDriver launchBrowser() throws IOException {
 
@@ -46,8 +46,7 @@ public class BaseClass {
 		prop.load(fis);
 		String browsername = prop.getProperty("browser");
 		if (browsername.equals("chrome")) {
-			System.setProperty("webdriver.chrome.driver",
-					"C:\\Users\\admin\\Downloads\\NewChrome\\chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver", "C:\\Users\\admin\\Downloads\\NewChrome\\chromedriver.exe");
 			driver = new ChromeDriver();
 			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
@@ -374,6 +373,23 @@ public class BaseClass {
 
 		}
 		return v;
+	}
+
+	public static WebDriver Launchbrowser() throws IOException {
+		prop = new Properties();
+		FileInputStream file = new FileInputStream(
+				System.getProperty("user.dir") + "\\src\\main\\java\\com\\opencart\\utils\\Propertyfile.properties");
+		prop.load(file);
+		String Browsername = prop.getProperty("browser");
+		if (Browsername.equals("chrome")) {
+			System.setProperty("webdriver.chrome.driver", "C:\\Users\\admin\\Downloads\\NewChrome\\chromedriver.exe");
+			driver = new ChromeDriver();
+			driver.manage().window().maximize();
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		}
+
+		return driver;
+
 	}
 
 }

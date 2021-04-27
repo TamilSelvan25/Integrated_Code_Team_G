@@ -12,41 +12,42 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class BaseClassPage {
-	
+public class BaseClassPage{
+
 	public static Properties prop;
 	public static WebDriver driver;
+
 	public BaseClassPage() {
-		prop= new Properties();
+		prop = new Properties();
 		FileInputStream file;
 		try {
-			file= new FileInputStream(System.getProperty("user.dir")+"\\src\\main\\java\\com\\opencart\\utils\\Configuration.properties");
+			file = new FileInputStream(System.getProperty("user.dir")
+					+ "\\src\\main\\java\\com\\opencart\\utils\\Configuration.properties");
 			prop.load(file);
-		}catch(FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		catch(IOException e) {
-			e.printStackTrace();
-		}
-		
+
 	}
-	
+
 	public void initialization() {
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\admin\\Downloads\\NewChrome\\chromedriver.exe");
-		driver=new ChromeDriver();
-		 driver.manage().window().maximize();
-		 
-		 driver.manage().deleteAllCookies();
-		 driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
-		 driver.get(prop.getProperty("url"));
-		 System.out.println("Page title is : " + driver.getTitle());
+		driver = new ChromeDriver();
+		driver.manage().window().maximize();
+
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get(prop.getProperty("url"));
+		System.out.println("Page title is : " + driver.getTitle());
 	}
-	
+
 	public static void screenShot(String path) throws Exception {
-        TakesScreenshot tk = (TakesScreenshot) driver;
-        File src = tk.getScreenshotAs(OutputType.FILE);
-        File des = new File(path);
-        FileUtils.copyFile(src, des);
+		TakesScreenshot tk = (TakesScreenshot) driver;
+		File src = tk.getScreenshotAs(OutputType.FILE);
+		File des = new File(path);
+		FileUtils.copyFile(src, des);
 	}
 
 }
